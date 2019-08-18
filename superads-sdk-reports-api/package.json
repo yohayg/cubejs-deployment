@@ -1,5 +1,5 @@
 {
-  "name": "superads-sdk-reports",
+  "name": "superads-sdk-reports-api",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -7,6 +7,6 @@
   },
   "dependencies": {
     "@cubejs-backend/mysql-driver": "^0.10.16",
-    "@cubejs-backend/server": "^0.10.18"
+    "@cubejs-backend/server": "^0.10.21"
   }
 }

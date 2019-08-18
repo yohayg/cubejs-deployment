@@ -1,0 +1,94 @@
+variables:
+  APP_RELEASE_NAME: $CI_COMMIT_REF_SLUG-$CI_PROJECT_NAME
+  APP_REGISTRY_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+
+services:
+  - docker:dind
+
+stages:
+#  - build
+  - package
+  - staging
+  - production
+
+#build:
+#  stage: build
+#  image: maven:3-jdk-8
+#  tags:
+#    - staging
+#  script: "mvn -version; mvn package"
+#  artifacts:
+#    expire_in: 1h
+#    paths:
+#      - target/*.jar
+
+package:
+  stage: package
+  image: docker:latest
+  tags:
+    - staging
+  script:
+    - echo Build Docker image $APP_REGISTRY_IMAGE
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $APP_REGISTRY_IMAGE ./superads-sdk-reports-api/.
+    - docker push $APP_REGISTRY_IMAGE
+  only:
+    - staging
+
+deploy:
+  stage: staging
+  image:
+    name: gcr.io/kubernetes-helm/tiller:v2.13.1
+    entrypoint: [/bin/sh]
+  tags:
+    - staging
+  dependencies: []
+  script:
+    - echo Deploy Helm release $APP_RELEASE_NAME
+    - |
+      /helm upgrade \
+      --install \
+      --namespace=staging \
+      --tiller-namespace=staging \
+      --set image.tag=$CI_COMMIT_REF_SLUG \
+      $APP_RELEASE_NAME \
+      ./charts/superads-sdk-reports-api
+  only:
+    - staging
+
+remove:
+  stage: staging
+  image:
+    name: gcr.io/kubernetes-helm/tiller:v2.13.1
+    entrypoint: [/bin/sh]
+  tags:
+    - staging
+  dependencies: []
+  script:
+    - echo Delete Helm release $APP_RELEASE_NAME
+    - /helm delete --tiller-namespace=staging --purge $APP_RELEASE_NAME
+  only:
+    - staging
+  when: manual
+
+deploy-production:
+  stage: production
+  image:
+    name: gcr.io/kubernetes-helm/tiller:v2.13.1
+    entrypoint: [/bin/sh]
+  tags:
+    - production
+  dependencies: []
+  script:
+    - echo Deploy Helm release $APP_RELEASE_NAME
+    - |
+      /helm upgrade \
+      --install \
+      --namespace=production \
+      --tiller-namespace=production \
+      --set image.tag=$CI_COMMIT_REF_SLUG \
+      $APP_RELEASE_NAME \
+      ./charts/superads-sdk-reports-api
+  only:
+    - staging
+  when: manual
