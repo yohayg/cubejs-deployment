@@ -33,4 +33,4 @@ spec:
                 name: environment-config
           ports:
             - name: http
-              containerPort: 8081
+              containerPort: 4000

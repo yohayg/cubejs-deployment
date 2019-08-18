@@ -6,21 +6,9 @@ services:
   - docker:dind
 
 stages:
-#  - build
   - package
   - staging
   - production
-
-#build:
-#  stage: build
-#  image: maven:3-jdk-8
-#  tags:
-#    - staging
-#  script: "mvn -version; mvn package"
-#  artifacts:
-#    expire_in: 1h
-#    paths:
-#      - target/*.jar
 
 package:
   stage: package
@@ -52,7 +40,7 @@ deploy:
       --tiller-namespace=staging \
       --set image.tag=$CI_COMMIT_REF_SLUG \
       $APP_RELEASE_NAME \
-      ./charts/superads-sdk-reports-api
+      ./superads-sdk-reports-api/charts/superads-sdk-reports-api
   only:
     - staging
 
@@ -88,7 +76,7 @@ deploy-production:
       --tiller-namespace=production \
       --set image.tag=$CI_COMMIT_REF_SLUG \
       $APP_RELEASE_NAME \
-      ./charts/superads-sdk-reports-api
+      ./superads-sdk-reports-api/charts/superads-sdk-reports-api
   only:
     - staging
   when: manual
