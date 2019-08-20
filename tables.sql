@@ -32,6 +32,7 @@ CREATE TABLE `tracking_impressions`
 CREATE TABLE `events`
 (
     `event_time`  DATETIME NOT NULL,
+    `event_time_ts` bigint(20) NOT NULL,
     `app_id`      varchar(11) NOT NULL,
     `ad_set_id`   varchar(11) NOT NULL,
     `ch_id`       varchar(11) NOT NULL,
