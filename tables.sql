@@ -36,7 +36,7 @@ CREATE TABLE `events`
     `app_id`      varchar(11) NOT NULL,
     `ad_set_id`   varchar(11) NOT NULL,
     `ch_id`       varchar(11) NOT NULL,
-    `user_id`     varchar(11) NOT NULL,
+    `user_id`     varchar(45) NOT NULL,
     `offer_id`    varchar(11) NOT NULL,
     `creative_id` varchar(11) NOT NULL,
     `event_id`    varchar(11) NOT NULL,
