@@ -16,7 +16,7 @@ CUBEJS_API_SECRET=a085d56f3ebee22b42cd22bb62b8bf92f25992ae13888176cf9273f7b91c9d
 ```
 
 ```
-npm run env
+npm run dev
 ```
 
 ## using docker:
