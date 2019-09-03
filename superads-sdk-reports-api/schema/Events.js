@@ -6,7 +6,7 @@ cube(`Events`, {
     measures: {
         count: {
             type: `count`,
-            drillMembers: [eventTime, createId, campaign, appId, adSetId, chId, userId, offerId, creativeId, eventId, eventType]
+            drillMembers: [eventTime, eventTimeTS, requestId, appId, adSetId, chId, userId, offerId, creativeId, eventId, eventType, geo, device, osVersion, deviceIp, placementId]
         },
         anyEventUniq: {
             sql: `user_id`,
@@ -16,6 +16,13 @@ cube(`Events`, {
         anyEvent: {
             type: `count`,
             title: `Any Event - Total`
+        },
+        clicks: {
+            type: `count`,
+            title: `All Clicks`,
+            filters: [
+                { sql: `${CUBE.eventType} = 'click'` }
+            ]
         },
         clicksUniq: {
             type: `countDistinct`,
@@ -31,7 +38,15 @@ cube(`Events`, {
             filters: [
                 { sql: `${CUBE.eventType} = 'impression'` }
             ]
-        }
+        },
+        impressionsUniq: {
+            type: `countDistinct`,
+            title: `Impressions - Unique`,
+            sql: `user_id`,
+            filters: [
+                { sql: `${CUBE.eventType} = 'impression'` }
+            ]
+        },
         // uniqueUsersCount: {
         //     sql: 'user_id',
         //     type: 'countDistinct'
@@ -46,45 +61,65 @@ cube(`Events`, {
             sql: `event_time`,
             type: `time`
         },
-        createId: {
-            sql: `create_id`,
+        eventTimeTS: {
+            sql: `event_time_ts`,
             type: `number`
         },
-        campaign: {
-            sql: `campaign`,
-            type: `number`
+        requestId: {
+            sql: `request_id`,
+            type: `string`
         },
         appId: {
             sql: `app_id`,
-            type: `number`
+            type: `string`
         },
         adSetId: {
             sql: `ad_set_id`,
-            type: `number`
+            type: `string`
         },
         chId: {
             sql: `ch_id`,
-            type: `number`
+            type: `string`
         },
         userId: {
             sql: `user_id`,
-            type: `number`
+            type: `string`
         },
         offerId: {
             sql: `offer_id`,
-            type: `number`
+            type: `string`
         },
         creativeId: {
             sql: `creative_id`,
-            type: `number`
+            type: `string`
         },
         eventId: {
             sql: `event_id`,
-            type: `number`,
+            type: `string`,
             primaryKey: true
         },
         eventType: {
             sql: `event_type`,
+            type: `string`
+        },
+        geo: {
+            sql: `geo`,
+            type: `string`
+        },
+        device: {
+            sql: `device`,
+            type: `string`
+        },
+        osVersion: {
+            sql: `os_version`,
+            type: `string`
+        },
+        deviceIp: {
+            sql: `device_ip`,
+            type: `string`
+        },
+        placementId: {
+            sql: `placement_id`,
             type: `string`
         }
     }
