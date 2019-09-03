@@ -24,6 +24,14 @@ cube(`Events`, {
             filters: [
                 { sql: `${CUBE.eventType} = 1` }
             ]
+        },
+        impressionsUniq: {
+            type: `countDistinct`,
+            title: `Impressions - Unique`,
+            sql: `user_id`,
+            filters: [
+                { sql: `${CUBE.eventType} = 0` }
+            ]
         }
         // uniqueUsersCount: {
         //     sql: 'user_id',
