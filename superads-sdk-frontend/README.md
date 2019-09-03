@@ -1,5 +1,19 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+Generate token:
+
+```bash
+cubejs token -e "1 day"
+```
+Create an .env file in 
+with the following content:
+```
+REACT_APP_CUBEJS_TOKEN= generated token
+REACT_APP_API_URL=http://localhost:4000/cubejs-api/v1
+```
+
+
 ## Available Scripts
 
 In the project directory, you can run:
