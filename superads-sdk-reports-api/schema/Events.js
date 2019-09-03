@@ -22,13 +22,12 @@ cube(`Events`, {
             title: `Clicks - Unique`,
             sql: `user_id`,
             filters: [
-                { sql: `${CUBE.eventType} = 1` }
+                { sql: `${CUBE.eventType} = 'click'` }
             ]
         },
-        impressionsUniq: {
-            type: `countDistinct`,
-            title: `Impressions - Unique`,
-            sql: `user_id`,
+        impressions: {
+            type: `count`,
+            title: `All Impressions`,
             filters: [
                 { sql: `${CUBE.eventType} = 'impression'` }
             ]
