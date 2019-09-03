@@ -30,7 +30,7 @@ cube(`Events`, {
             title: `Impressions - Unique`,
             sql: `user_id`,
             filters: [
-                { sql: `${CUBE.eventType} = impression` }
+                { sql: `${CUBE.eventType} = 'impression'` }
             ]
         }
         // uniqueUsersCount: {
