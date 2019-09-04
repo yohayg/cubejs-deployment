@@ -40,7 +40,7 @@ deploy:
       --tiller-namespace=staging \
       --set image.tag=$CI_COMMIT_REF_SLUG \
       $APP_RELEASE_NAME \
-      ./superads-sdk-reports-api/charts/superads-sdk-reports-api
+      ./superads-sdk-reports-api/charts/superads-sdk-reports
   only:
     - staging
 
@@ -76,7 +76,7 @@ deploy-production:
       --tiller-namespace=production \
       --set image.tag=$CI_COMMIT_REF_SLUG \
       $APP_RELEASE_NAME \
-      ./superads-sdk-reports-api/charts/superads-sdk-reports-api
+      ./superads-sdk-reports-api/charts/superads-sdk-reports
   only:
     - staging
   when: manual
