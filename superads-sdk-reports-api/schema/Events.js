@@ -8,6 +8,13 @@ cube(`Events`, {
             type: `count`,
             drillMembers: [eventTime, eventTimeTS, requestId, appId, adSetId, chId, userId, offerId, creativeId, eventId, eventType, geo, device, osVersion, deviceIp, placementId]
         },
+        rollingCountMinute: {
+            sql: `eventId`,
+            type: `count`,
+            rollingWindow: {
+                trailing: `1 minute`
+            }
+        },
         anyEventUniq: {
             sql: `user_id`,
             type: `countDistinct`,
