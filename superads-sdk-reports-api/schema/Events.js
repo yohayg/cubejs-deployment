@@ -8,7 +8,7 @@ cube(`Events`, {
             type: `count`,
             drillMembers: [eventTime, eventTimeTS, requestId, appId, adSetId, chId, userId, offerId, creativeId, eventId, eventType, geo, device, osVersion, deviceIp, placementId]
         },
-        rollingCountMinute: {
+        events: {
             sql: `eventId`,
             type: `count`,
             rollingWindow: {
