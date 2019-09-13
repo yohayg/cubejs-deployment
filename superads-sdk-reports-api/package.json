@@ -6,7 +6,7 @@
     "dev": "./node_modules/.bin/cubejs-dev-server"
   },
   "dependencies": {
-    "@cubejs-backend/mysql-driver": "^0.10.16",
-    "@cubejs-backend/server": "^0.10.21"
+    "@cubejs-backend/mysql-driver": "^0.10.35",
+    "@cubejs-backend/server": "^0.10.41"
   }
 }
