@@ -6,7 +6,7 @@ cube(`Events`, {
     measures: {
         count: {
             type: `count`,
-            drillMembers: [eventTime, eventTimeTS, requestId, appId, adSetId, chId, userId, offerId, creativeId, eventId, eventType, geo, device, osVersion, deviceIp, placementId, ifa]
+            drillMembers: [eventTime, eventTimeTS, requestId, appId, adSetId, chId, userId, offerId, creativeId, eventId, eventType, geo, device, osVersion, deviceIp, placementId, ifa, completed]
         },
         events: {
             sql: `eventId`,
@@ -132,6 +132,10 @@ cube(`Events`, {
         ifa: {
             sql: `ifa`,
             type: `string`
-                }
+                },
+        completed: {
+            sql: `completed`,
+            type: `string`
+        }
     }
 });
