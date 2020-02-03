@@ -25,9 +25,6 @@ package:
 
 deploy:
   stage: staging
-#  image:
-#    name: gcr.io/kubernetes-helm/tiller:v2.15.0
-#    entrypoint: [/bin/sh]
   tags:
     - staging
   dependencies: []
@@ -45,24 +42,18 @@ deploy:
 
 remove:
   stage: staging
-#  image:
-#    name: gcr.io/kubernetes-helm/tiller:v2.15.0
-#    entrypoint: [/bin/sh]
   tags:
     - staging
   dependencies: []
   script:
     - echo Delete Helm release $APP_RELEASE_NAME
-    - /helm delete --tiller-namespace=staging --purge $APP_RELEASE_NAME
+    - /helm delete --purge $APP_RELEASE_NAME
   only:
     - staging
   when: manual
 
 deploy-production:
-#  stage: production
-#  image:
-#    name: gcr.io/kubernetes-helm/tiller:v2.15.0
-#    entrypoint: [/bin/sh]
+  stage: production
   tags:
     - production
   dependencies: []
