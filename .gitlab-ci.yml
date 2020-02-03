@@ -26,7 +26,7 @@ package:
 deploy:
   stage: staging
   image:
-    name: gcr.io/kubernetes-helm/tiller:v2.15.0
+    name: alpine/helm
     entrypoint: [/bin/sh]
   tags:
     - staging
@@ -46,7 +46,7 @@ deploy:
 remove:
   stage: staging
   image:
-    name: gcr.io/kubernetes-helm/tiller:v2.15.0
+    name: alpine/helm
     entrypoint: [/bin/sh]
   tags:
     - staging
@@ -61,7 +61,7 @@ remove:
 deploy-production:
   stage: production
   image:
-    name: gcr.io/kubernetes-helm/tiller:v2.15.0
+    name: alpine/helm
     entrypoint: [/bin/sh]
   tags:
     - production
