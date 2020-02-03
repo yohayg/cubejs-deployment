@@ -68,8 +68,7 @@ deploy-production:
   dependencies: []
   script:
     - echo Deploy Helm release $APP_RELEASE_NAME
-    - |
-      /helm upgrade \
+    - helm upgrade \
       --install \
       --namespace=production \
       --set image.tag=$CI_COMMIT_REF_SLUG \
