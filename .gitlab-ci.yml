@@ -1,6 +1,6 @@
 variables:
   APP_RELEASE_NAME: superads-sdk-reports
-  APP_REGISTRY_IMAGE: http://192.168.99.105:5000/demo:$CI_COMMIT_REF_SLUG
+  APP_REGISTRY_IMAGE: 192.168.99.105:5000/demo:$CI_COMMIT_REF_SLUG
 
 services:
   - docker:dind
