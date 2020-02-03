@@ -16,10 +16,10 @@ package:
   tags:
     - staging
   script:
-    - echo Build Docker image superads-sdk-reports
+    - echo Build Docker image $APP_REGISTRY_IMAGE
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t superads-sdk-reports ./superads-sdk-reports-api/.
-    - docker push superads-sdk-reports
+    - docker build -t $APP_REGISTRY_IMAGE ./superads-sdk-reports-api/.
+    - docker push $APP_REGISTRY_IMAGE
   only:
     - staging
 
@@ -32,12 +32,12 @@ deploy:
     - staging
   dependencies: []
   script:
-    - echo Deploy Helm release $APP_RELEASE_NAME
+    - echo Deploy Helm release superads-sdk-reports
     - helm upgrade \
       --install \
       --namespace=staging \
       --set image.tag=$CI_COMMIT_REF_SLUG \
-      $APP_RELEASE_NAME \
+      superads-sdk-reports \
       ./superads-sdk-reports-api/charts/superads-sdk-reports
   only:
     - staging
@@ -51,8 +51,8 @@ remove:
     - staging
   dependencies: []
   script:
-    - echo Delete Helm release $APP_RELEASE_NAME
-    - /helm delete --purge $APP_RELEASE_NAME
+    - echo Delete Helm release superads-sdk-reports
+    - /helm delete --purge superads-sdk-reports
   only:
     - staging
   when: manual
@@ -66,12 +66,12 @@ deploy-production:
     - production
   dependencies: []
   script:
-    - echo Deploy Helm release $APP_RELEASE_NAME
+    - echo Deploy Helm release superads-sdk-reports
     - helm upgrade \
       --install \
       --namespace=production \
       --set image.tag=$CI_COMMIT_REF_SLUG \
-      $APP_RELEASE_NAME \
+      superads-sdk-reports \
       ./superads-sdk-reports-api/charts/superads-sdk-reports
   only:
     - staging
