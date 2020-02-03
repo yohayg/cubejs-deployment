@@ -16,10 +16,10 @@ package:
   tags:
     - staging
   script:
-    - echo Build Docker image $APP_REGISTRY_IMAGE
+    - echo Build Docker image superads-sdk-reports
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t $APP_REGISTRY_IMAGE ./superads-sdk-reports-api/.
-    - docker push $APP_REGISTRY_IMAGE
+    - docker build -t superads-sdk-reports ./superads-sdk-reports-api/.
+    - docker push superads-sdk-reports
   only:
     - staging
 
