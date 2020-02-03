@@ -25,9 +25,9 @@ package:
 
 deploy:
   stage: staging
-  image:
-    name: gcr.io/kubernetes-helm/tiller:v2.15.0
-    entrypoint: [/bin/sh]
+#  image:
+#    name: gcr.io/kubernetes-helm/tiller:v2.15.0
+#    entrypoint: [/bin/sh]
   tags:
     - staging
   dependencies: []
@@ -45,9 +45,9 @@ deploy:
 
 remove:
   stage: staging
-  image:
-    name: gcr.io/kubernetes-helm/tiller:v2.15.0
-    entrypoint: [/bin/sh]
+#  image:
+#    name: gcr.io/kubernetes-helm/tiller:v2.15.0
+#    entrypoint: [/bin/sh]
   tags:
     - staging
   dependencies: []
@@ -59,10 +59,10 @@ remove:
   when: manual
 
 deploy-production:
-  stage: production
-  image:
-    name: gcr.io/kubernetes-helm/tiller:v2.15.0
-    entrypoint: [/bin/sh]
+#  stage: production
+#  image:
+#    name: gcr.io/kubernetes-helm/tiller:v2.15.0
+#    entrypoint: [/bin/sh]
   tags:
     - production
   dependencies: []
@@ -72,7 +72,6 @@ deploy-production:
       /helm upgrade \
       --install \
       --namespace=production \
-      --tiller-namespace=production \
       --set image.tag=$CI_COMMIT_REF_SLUG \
       $APP_RELEASE_NAME \
       ./superads-sdk-reports-api/charts/superads-sdk-reports

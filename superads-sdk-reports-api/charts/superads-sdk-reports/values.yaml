@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: registry.gitlab.com/superads-sdk/superads-sdk-reports
+  repository: registry.gitlab.com/yohayg-demo/superads-sdk-reports
   tag: latest
   pullPolicy: Always
 
