@@ -37,7 +37,6 @@ deploy:
       /helm upgrade \
       --install \
       --namespace=staging \
-#      --tiller-namespace=staging \
       --set image.tag=$CI_COMMIT_REF_SLUG \
       $APP_RELEASE_NAME \
       ./superads-sdk-reports-api/charts/superads-sdk-reports
