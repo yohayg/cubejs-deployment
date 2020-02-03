@@ -12,7 +12,7 @@ stages:
 
 package:
   stage: package
-  image: docker:latest
+  image: yohayg/docker
   tags:
     - staging
   script:
