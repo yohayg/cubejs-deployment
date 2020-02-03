@@ -33,12 +33,7 @@ deploy:
   dependencies: []
   script:
     - echo Deploy Helm release superads-sdk-reports
-    - helm upgrade \
-      --install \
-      --namespace=staging \
-      --set image.tag=$CI_COMMIT_REF_SLUG \
-      superads-sdk-reports \
-      ./superads-sdk-reports-api/charts/superads-sdk-reports
+    - helm upgrade --install --namespace=staging --set image.tag=$CI_COMMIT_REF_SLUG $APP_RELEASE_NAME ./superads-sdk-reports-api/charts/superads-sdk-reports
   only:
     - staging
 
