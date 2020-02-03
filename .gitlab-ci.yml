@@ -17,7 +17,7 @@ package:
     - staging
   script:
     - echo Build Docker image $APP_REGISTRY_IMAGE
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD http://192.168.99.105:5000
+#    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD http://192.168.99.105:5000
     - docker build -t $APP_REGISTRY_IMAGE ./superads-sdk-reports-api/.
     - docker push $APP_REGISTRY_IMAGE
   only:
