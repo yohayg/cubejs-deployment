@@ -1,5 +1,5 @@
 variables:
-  APP_RELEASE_NAME: $CI_PROJECT_NAME
+  APP_RELEASE_NAME: superads-sdk-reports
   APP_REGISTRY_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
 
 services:
