@@ -3,7 +3,7 @@ variables:
   APP_REGISTRY_IMAGE: 192.168.99.105:5000/superads-sdk-reports:$CI_COMMIT_REF_SLUG
 
 services:
-  - docker:dind
+  - lordgaav/dind-options:latest
 
 stages:
   - package
@@ -12,7 +12,10 @@ stages:
 
 package:
   stage: package
-  image: yohayg/docker
+  image: docker:latest
+  variables:
+    DOCKER_OPTS: "--insecure-registry=192.168.99.105:5000"
+    DOCKER_HOST: "tcp://lordgaav__dind-options:2375"
   tags:
     - staging
   script:
