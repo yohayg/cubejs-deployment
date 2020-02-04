@@ -15,7 +15,7 @@ package:
   image: docker:latest
   variables:
     DOCKER_OPTS: "--insecure-registry=192.168.99.105:5000"
-    DOCKER_HOST: "tcp://lordgaav__dind-options:2375"
+#    DOCKER_HOST: "tcp://lordgaav__dind-options:2375"
   tags:
     - staging
   script:
