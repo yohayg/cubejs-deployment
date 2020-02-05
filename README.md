@@ -2,9 +2,9 @@
 # cube.js
 
 Start the server:
-look at superads-sdk-reports-api
+look at cubejs-deployment
 
 Start the demo react app:
-look at superads-sdk-frontend
+look at cubejs-frontend-deployment
 
 To generate data using python look at data util

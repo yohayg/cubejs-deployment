@@ -1,6 +1,6 @@
 variables:
-  APP_RELEASE_NAME: superads-sdk-reports
-  APP_REGISTRY_IMAGE: 192.168.99.105:5000/superads-sdk-reports:$CI_COMMIT_REF_SLUG
+  APP_RELEASE_NAME: cubejs-deployment
+  APP_REGISTRY_IMAGE: 192.168.99.105:5000/cubejs-deployment:$CI_COMMIT_REF_SLUG
 
 services:
   - lordgaav/dind-options:latest
@@ -16,12 +16,13 @@ package:
   variables:
     DOCKER_OPTS: "--insecure-registry=192.168.99.105:5000"
 #    DOCKER_HOST: "tcp://lordgaav__dind-options:2375"
+#     https://github.com/LordGaav/dind-options
   tags:
     - staging
   script:
     - echo Build Docker image $APP_REGISTRY_IMAGE
 #    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD http://192.168.99.105:5000
-    - docker build -t $APP_REGISTRY_IMAGE ./superads-sdk-reports-api/.
+    - docker build -t $APP_REGISTRY_IMAGE ./cubejs-deployment/.
     - docker push $APP_REGISTRY_IMAGE
   only:
     - staging
@@ -35,8 +36,8 @@ deploy:
     - staging
   dependencies: []
   script:
-    - echo Deploy Helm release superads-sdk-reports
-    - helm upgrade --install --namespace=staging --set image.tag=$CI_COMMIT_REF_SLUG $APP_RELEASE_NAME ./superads-sdk-reports-api/charts/superads-sdk-reports
+    - echo Deploy Helm release cubejs-deployment
+    - helm upgrade --install --namespace=staging --set image.tag=$CI_COMMIT_REF_SLUG $APP_RELEASE_NAME ./cubejs-deployment/charts/cubejs-deployment
   only:
     - staging
 
@@ -49,8 +50,8 @@ remove:
     - staging
   dependencies: []
   script:
-    - echo Delete Helm release superads-sdk-reports
-    - /helm delete --purge superads-sdk-reports
+    - echo Delete Helm release cubejs-deployment
+    - /helm delete --purge cubejs-deployment
   only:
     - staging
   when: manual
@@ -64,13 +65,13 @@ deploy-production:
     - production
   dependencies: []
   script:
-    - echo Deploy Helm release superads-sdk-reports
+    - echo Deploy Helm release cubejs-deployment
     - helm upgrade \
       --install \
       --namespace=production \
       --set image.tag=$CI_COMMIT_REF_SLUG \
-      superads-sdk-reports \
-      ./superads-sdk-reports-api/charts/superads-sdk-reports
+      cubejs-deployment \
+      ./cubejs-deployment/charts/cubejs-deployment
   only:
     - staging
   when: manual

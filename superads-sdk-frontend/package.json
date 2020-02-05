@@ -1,5 +1,5 @@
 {
-  "name": "superads-sdk-frontend",
+  "name": "cubejs-frontend-deployment",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -18,7 +18,7 @@ package:
   script:
     - echo Build Docker image $APP_REGISTRY_IMAGE
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t $APP_REGISTRY_IMAGE ./superads-sdk-reports-api/.
+    - docker build -t $APP_REGISTRY_IMAGE ./cubejs-deployment/.
     - docker push $APP_REGISTRY_IMAGE
   only:
     - staging
@@ -33,7 +33,7 @@ deploy:
   dependencies: []
   script:
     - echo Deploy Helm release superads-sdk-reports
-    - helm upgrade --install --namespace=staging --set image.tag=$CI_COMMIT_REF_SLUG $APP_RELEASE_NAME ./superads-sdk-reports-api/charts/superads-sdk-reports
+    - helm upgrade --install --namespace=staging --set image.tag=$CI_COMMIT_REF_SLUG $APP_RELEASE_NAME ./cubejs-deployment/charts/superads-sdk-reports
   only:
     - staging
 
@@ -67,7 +67,7 @@ deploy-production:
       --namespace=production \
       --set image.tag=$CI_COMMIT_REF_SLUG \
       superads-sdk-reports \
-      ./superads-sdk-reports-api/charts/superads-sdk-reports
+      ./cubejs-deployment/charts/superads-sdk-reports
   only:
     - staging
   when: manual
