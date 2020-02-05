@@ -1,0 +1,16 @@
+replicaCount: 1
+
+image:
+  repository: 192.168.99.105:5000/cubejs-deployment
+  tag: latest
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: gitlab
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: NodePort
+  port: 4000

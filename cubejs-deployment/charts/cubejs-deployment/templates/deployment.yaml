@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "cubejs-deployment.fullname" . }}
+  labels:
+{{ include "cubejs-deployment.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "cubejs-deployment.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "cubejs-deployment.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+      annotations:
+        timestamp: "{{ date "20060102150405" .Release.Time }}"
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - secretRef:
+                name: cube-js-memsql-secrets
+            - configMapRef:
+                name: environment-config
+          ports:
+            - name: http
+              containerPort: 4000
+          readinessProbe:
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 3
+            successThreshold: 1
+            httpGet:
+              path: /
+              port: 4000
+          livenessProbe:
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            failureThreshold: 3
+            successThreshold: 1
+            httpGet:
+              path: /
+              port: 4000
