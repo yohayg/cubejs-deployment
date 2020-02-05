@@ -28,7 +28,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
             - secretRef:
-                name: cube-js-memsql-secrets
+                name: cube-js-mysql-secrets
             - configMapRef:
                 name: environment-config
           ports:

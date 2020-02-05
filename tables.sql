@@ -1,4 +1,4 @@
-USE super_ads;
+USE bidding;
 CREATE TABLE `tracking_clicks`
 (
     `created_at`  timestamp,
@@ -47,6 +47,5 @@ CREATE TABLE `events`
     `device`      varchar(50) DEFAULT NULL,
     `os_version`  varchar(50) DEFAULT NULL,
     `device_ip`   varchar(50) DEFAULT NULL,
-    `ua`          text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-    KEY (`event_id`) USING CLUSTERED COLUMNSTORE
+    `ua`          text CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL
 );

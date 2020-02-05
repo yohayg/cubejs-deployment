@@ -1,5 +1,5 @@
 cube(`Events`, {
-    sql: `SELECT * FROM super_ads.events`,
+    sql: `SELECT * FROM bidding.events`,
 
     joins: {},
 

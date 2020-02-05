@@ -88,7 +88,7 @@ def events():
 connection = pymysql.connect(host='localhost',
                              user='root',
                              password='',
-                             db='super_ads',
+                             db='bidding',
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 
