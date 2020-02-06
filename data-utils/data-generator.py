@@ -61,10 +61,15 @@ def getDevice():
 
 
 def events():
+#     sql_events = "INSERT INTO events (" \
+#                  "event_time, request_id, placement_id, app_id, ad_set_id, " \
+#                  "ch_id, user_id, offer_id, creative_id, event_id, event_type, geo, device, os_version, device_ip, ua)  " \
+#                  "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+
     sql_events = "INSERT INTO events (" \
-                 "event_time, create_id, campaign, app_id, ad_set_id, " \
-                 "ch_id, user_id, offer_id, creative_id, event_id, event_type, geo, device, os_version, device_ip, ua)  " \
-                 "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                 "event_time, event_time_ts, app_id, ad_set_id, ch_id, user_id, offer_id, creative_id, event_id, event_type) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)" \
+#                  "ch_id, user_id, offer_id, creative_id, event_id, event_type, geo, device, os_version, device_ip, ua)  " \
+#                  "VALUES(%s, %s)"
     event_id = 0
     minutes = 0
     hour = 0
@@ -79,15 +84,16 @@ def events():
             day = day + 1
         event_id = event_id + 1
         print(event_id)
-        cursor.execute(sql_events, (
-        datetime.datetime(2019, 8, day, hour, minutes, 0), 1, 1, 1, 1, 1, randint(0, 10), randint(0, 1), 1, event_id, randint(0, 1), getGeo(),
-        getDevice(), "", "", ""))
+        cursor.execute(sql_events,
+#         (datetime.datetime(2019, 8, day, hour, minutes, 0), datetime.datetime(2019, 8, day, hour, minutes, 0).timestamp(), "1", "1", "1", "1", "1", str(randint(0, 10)), str(randint(0, 1)), "1", str(event_id), "impression", getGeo(),getDevice(),"1","1", "safari"))
+        (datetime.datetime(2019, 8, day, hour, minutes, 0), datetime.datetime(2019, 8, day, hour, minutes, 0).timestamp(), "1","1","1","1", "1", "1", str(event_id),"impression")
+        )
 
 
 # Connect to the database
-connection = pymysql.connect(host='localhost',
-                             user='root',
-                             password='',
+connection = pymysql.connect(host='mysql.mysql',
+                             user='bidding',
+                             password='bidding',
                              db='bidding',
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
@@ -99,11 +105,11 @@ try:
     devices = ["Android", "Iphone"]
 
     with connection.cursor() as cursor:
-        # Read a single record
-        sql = 'delete from tracking_clicks'
-        cursor.execute(sql)
-        sql = 'delete from tracking_impressions'
-        cursor.execute(sql)
+#         # Read a single record
+#         sql = 'delete from tracking_clicks'
+#         cursor.execute(sql)
+#         sql = 'delete from tracking_impressions'
+#         cursor.execute(sql)
         sql = 'delete from events'
         cursor.execute(sql)
 

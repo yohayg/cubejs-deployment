@@ -1,0 +1,17 @@
+---
+gitlabUrl: "http://192.168.99.105/"
+runnerRegistrationToken: "o6WFuRkxXtNJRoyHEYUx"
+rbac:
+  create: true
+envVars:
+  - name: LOG_FORMAT
+    value: json
+runners:
+  privileged: true
+  serviceAccountName: gitlab-runner
+  env:
+    DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://localhost:2375
+    DOCKER_TLS_CERTDIR: ""
+    DOCKER_OPTS: '--insecure-registry 192.168.99.105:5000'
+  tags: "staging,production"
